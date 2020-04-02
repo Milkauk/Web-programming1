@@ -1,0 +1,183 @@
+<!DOCTYPE html><html>
+<!-- 
+Tämä on tilauslomake, joka on toteutettu Javascriptillä
+-->
+<html>
+<head>
+<meta charset="UTF-8" />
+	<title>Tilauslomake: Koodarin Kirjakeidas
+	</title>
+	 <link href="taulukko.css" rel="StyleSheet" type="text/css" media="all" >
+</head>
+
+<h2> Asiakastiedot </h2>
+
+	<form action="https://wwwkayttoliittyma.appspot.com/printvalues">
+    <table>
+        <tr>
+            <td><label for="k_nimi">Etunimi:</label></td>
+            <td><input type="text" name="nimi" id="k_nimi" size="45"/> </td>
+        </tr>
+		<tr>
+            <td><label for="k_nimi">Sukunimi:</label></td>
+            <td><input type="text" name="sukunimi" id="sukunimi" size="45"/> </td>
+        </tr>
+		<tr>
+            <td><label for="k_nimi">Katuosoite:</label></td>
+            <td><input type="text" name="katuosoite" id="katuosoite" size="45"/> </td>
+		</tr>
+		<tr>
+            <td><label for="k_nimi">Postinumero:</label></td>
+            <td><input type="text" name="postinumero" id="postinro" size="15"/> </td>
+        </tr>
+		<tr>
+            <td><label for="k_nimi">Postitoimipaikka:</label></td>
+            <td><input type="text" name="postitpaikka" id="ppaikka" size="45"/> </td>
+        </tr>
+        <tr>
+            <td><label for="a_paikka">Sähköpostiosoite:</label></td>
+            <td><input type="text" name="paikka" id="a_paikka" size="45"/></td>
+        </tr>
+
+	<br>
+	</table>
+    <h3>
+	Täytä tilaamiesi tuotteiden tiedot alla ostoskoriisi ja vahvista tilauksesi <b> Tilaa</b>-painikkeella.
+	</h3>
+	
+
+<body onkeyup="laskeRiviSummat(event);">
+ 
+<form action="#" method="post">
+
+<!-- Tehdään taulukko kirjatilauksia varten-->
+<table border=1>
+<tr>
+<td colspan="5" style="text-align:center;"><b>Kirjatilaus</b></td>
+</tr>
+<tr>
+	<th> Tuotenumero</th>
+	<th> Nimi </th>
+	<th> Kappaleet </th>
+	<th> A-hinta </th>
+	<th> Yhteens&auml; </th>
+</tr>
+<tr>
+	<td> 001 </td>
+	<td> HTML-opas </td>
+	<td>  
+	<input type='button' name='miinus' value='-' onclick="vahenna('luku1','yksikkohinta1','rivisumma1');">
+	<input id='luku1' type='text' name='luku1' value='0'>
+	<input type='button' name='plus' value='+' onclick="lisaa('luku1','yksikkohinta1','rivisumma1');">
+	<td>
+	<input id='yksikkohinta1' type='text' name='yksikkohinta1' value='6.00'>
+	<td>
+	<input id='rivisumma1' type="text" name="rivisumma1" value="0">
+</tr>
+<tr>
+	<td> 002 </td>
+	<td> Java-opas </td>
+	<td>  
+	<input type='button' name='miinus' value='-' onclick="vahenna('luku2','yksikkohinta2','rivisumma2');">
+	<input id='luku2' type='text' name='luku2' value='0'>
+	<input type='button' name='plus' value='+' onclick="lisaa('luku2','yksikkohinta2','rivisumma2');">
+	<td>
+	<input id='yksikkohinta2' type='text' name='yksikkohinta2' value='15.00'>
+	<td>
+	<input id='rivisumma2' type="text" name="rivisumma2" value="0">
+</tr>
+<tr>
+	<td> 003 </td>
+	<td> Javascript-opas </td>
+	<td>  
+	<input type='button' name='miinus' value='-' onclick="vahenna('luku3','yksikkohinta3','rivisumma3');">
+	<input id='luku3' type='text' name='luku3' value='0'>
+	<input type='button' name='plus' value='+' onclick="lisaa('luku3','yksikkohinta3','rivisumma3');">
+	<td>
+	<input id='yksikkohinta3' type='text' name='yksikkohinta3' value='10.00'>
+	<td>
+	<input id='rivisumma3' type="text" name="rivisumma3" value="0">
+</tr>
+<tr>
+	<td colspan=4 style="text-align:right;">Yhteens&auml;:
+	<td>
+	<input id='summa' type='ext' name='summa' value="0" size="10">
+	
+	
+</table>
+<br>
+<br>
+<input type="submit" name="tilaa" value="Tilaa!"\><br>
+</form>
+
+<script>
+ 
+function vahenna(elementti, yh, rs){
+    t=document.getElementsByName(elementti)
+    maara=Number(t[0].value);
+    if (maara>0){
+        maara=maara-1;
+    }
+    t[0].value=maara;
+    yksikkohinta=Number(document.getElementById(yh).value);
+    document.getElementById(rs).value=(maara*yksikkohinta);
+    laskeSumma();
+}
+function lisaa(elementti, yh, rs){
+    e=document.getElementById(elementti);
+    maara=Number(e.value); 
+    if (maara<10){
+        maara=maara+1;
+    }
+    e.value=maara;
+    yksikkohinta=Number(document.getElementById(yh).value);
+    document.getElementById(rs).value=(maara*yksikkohinta);
+    laskeSumma();
+}
+ 
+function laskeSumma(){
+    i=1;
+    document.getElementById("summa").value="0";
+    while (true){
+        rs=document.getElementById("rivisumma"+i);
+        if (rs==null){
+            break;
+        }
+        document.getElementById("summa").value=Number(document.getElementById("summa").value)+Number(rs.value);
+        i++;
+    }
+   
+}
+ 
+function laskeRiviSummat(event){
+    if (event.keyCode!=13){
+        return;
+    }
+    i=1;
+    while (true){
+        rs=document.getElementById("rivisumma"+i);
+        if (rs==null){
+            break;
+        }
+        maara=Number(document.getElementById("luku"+i).value);
+        yksikkohinta=Number(document.getElementById("yksikkohinta"+i).value);
+        rs.value=maara*yksikkohinta;
+        i++;
+    }
+   
+    laskeSumma();
+}
+ 
+
+
+</script>
+<br>
+<p>
+<a href="kirjakeidas.html">Takaisin etusivulle</a>
+</p>
+<br>
+
+</body>
+</html>
+	
+	

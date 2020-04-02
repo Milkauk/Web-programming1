@@ -1,0 +1,29 @@
+h1{
+	color:black;
+	font-family : "Arial";
+	font-size:50px;
+}
+p{
+	font-size:20px;
+	color:black;
+	font-family : "Arial";
+
+}
+h2{
+	color:black;
+	font-family : "Arial";
+	color:teal;
+}
+
+h3{
+	color:teal;
+	font-family : "Arial";
+}
+td{
+	color:black;
+	font-family : "Arial";
+}
+th{
+	color:black;
+	font-family : "Arial";
+}
